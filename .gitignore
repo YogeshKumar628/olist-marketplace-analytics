@@ -1,0 +1,19 @@
+# Data files - too large for GitHub, downloaded separately
+data/
+*.csv
+*.db
+
+# Virtual environment
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+Thumbs.db
+desktop.ini
