@@ -2,13 +2,11 @@
 
 
 
-Analysis of the Olist Brazilian e-commerce marketplace (\~100K orders, 2016–2018) examining
-
-how delivery performance affects customer satisfaction and repeat purchase behaviour.
+Analysis of the Olist Brazilian e-commerce marketplace (\~100K orders, 2016-2018) examining how delivery performance affects customer satisfaction and repeat purchase behaviour.
 
 
 
-\*\*Status:\*\* In progress — database layer complete, analysis in development.
+\*\*Status:\*\* In progress - database layer complete, analysis in development.
 
 
 
@@ -20,9 +18,7 @@ how delivery performance affects customer satisfaction and repeat purchase behav
 
 
 
-Olist is a marketplace where the platform controls the customer relationship but not the
-
-logistics. That makes delivery reliability a product problem, not just an operations one.
+Olist is a marketplace where the platform controls the customer relationship but not the logistics. That makes delivery reliability a product problem, not just an operations one.
 
 
 
@@ -46,27 +42,15 @@ This project asks three connected questions:
 
 
 
-Public analyses of Olist typically report that \~3% of customers place more than one order.
-
-Examining the time between a customer's first and second order shows that \*\*24.8% of those
-
-"second" orders were placed within one minute of the first.\*\*
+Public analyses of Olist typically report that \~3% of customers place more than one order. Examining the time between a customer's first and second order shows that \*\*24.8% of those "second" orders were placed within one minute of the first.\*\*
 
 
 
-These are not returning customers. Olist splits a multi-seller basket into separate
-
-`order\_id` records, so a single shopping session can produce several orders. Counting
-
-`order\_id` values without checking elapsed time inflates the repeat rate.
+These are not returning customers. Olist splits a multi-seller basket into separate order records, so a single shopping session can produce several orders. Counting order IDs without checking elapsed time inflates the repeat rate.
 
 
 
-Requiring a genuine gap between orders lowers the real repeat rate meaningfully. Of the 927
-
-customers with a second order inside 24 hours, only 78 ever placed a third — consistent
-
-with split baskets rather than high-frequency buyers.
+Requiring a genuine gap between orders lowers the real repeat rate meaningfully. Of the 927 customers with a second order inside 24 hours, only 78 ever placed a third - consistent with split baskets rather than high-frequency buyers.
 
 
 
@@ -80,7 +64,7 @@ with split baskets rather than high-frequency buyers.
 
 | \*\*Database\*\* | 9 CSVs loaded into SQLite with an explicit schema (primary and foreign keys declared), verified by row-count reconciliation |
 
-| \*\*SQL analysis\*\* | Multi-table joins, CTEs, and window functions (`NTILE`, `RANK() OVER (PARTITION BY)`) for RFM segmentation and top-sellers-per-state ranking |
+| \*\*SQL analysis\*\* | Multi-table joins, CTEs, and window functions (NTILE, RANK OVER PARTITION BY) for RFM segmentation and top-sellers-per-state ranking |
 
 | \*\*Delivery analysis\*\* | Welch's t-test on review scores for late vs on-time deliveries, reported with Cohen's d effect size |
 
@@ -92,19 +76,19 @@ with split baskets rather than high-frequency buyers.
 
 \## Repository Structure
 
-├── notebooks/
-
-│ ├── 01\_build\_database.ipynb # CSV → SQLite, with verification
-
-│ └── 02\_sql\_analysis.ipynb # joins, CTEs, window functions
-
-├── sql/ # saved query files
-
-├── outputs/ # charts
-
-└── requirements.txt
 
 
+\- \*\*notebooks/\*\* - Jupyter notebooks
+
+&#x20; - 01\_build\_database.ipynb - CSV to SQLite, with verification
+
+&#x20; - 02\_sql\_analysis.ipynb - joins, CTEs, window functions
+
+\- \*\*sql/\*\* - saved query files
+
+\- \*\*outputs/\*\* - charts
+
+\- \*\*requirements.txt\*\* - dependencies
 
 
 
@@ -112,13 +96,7 @@ with split baskets rather than high-frequency buyers.
 
 
 
-The dataset is not committed to this repository (the geolocation table alone exceeds GitHub's
-
-file size limit). Download it from
-
-\[Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) and extract all 9 CSVs
-
-into a `data/` folder, then run `01\_build\_database.ipynb`.
+The dataset is not committed to this repository (the geolocation table alone exceeds GitHub's file size limit). Download it from \[Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) and extract all 9 CSVs into a data/ folder, then run the database build notebook.
 
 
 
@@ -126,7 +104,7 @@ into a `data/` folder, then run `01\_build\_database.ipynb`.
 
 
 
-SQL (SQLite) · Python (pandas, NumPy, SciPy, Matplotlib, Seaborn) · Jupyter · Tableau Public
+SQL (SQLite), Python (pandas, NumPy, SciPy, Matplotlib, Seaborn), Jupyter, Tableau Public
 
 
 
@@ -134,19 +112,11 @@ SQL (SQLite) · Python (pandas, NumPy, SciPy, Matplotlib, Seaborn) · Jupyter ·
 
 
 
-\- \*\*`order\_status = 'delivered'` filter:\*\* cancelled and unavailable orders are excluded from
+\- \*\*Delivered-orders filter:\*\* cancelled and unavailable orders are excluded from delivery and satisfaction analysis, since they have no delivery outcome to measure.
 
-&#x20; delivery and satisfaction analysis, since they have no delivery outcome to measure.
+\- \*\*Welch's t-test over Student's:\*\* the late and on-time groups have very unequal sizes and variances; Welch's does not assume equal variance.
 
-\- \*\*Welch's t-test over Student's:\*\* the late and on-time groups have very unequal sizes and
+\- \*\*Cohen's d reported alongside p-values:\*\* at n of roughly 90,000 almost any difference is statistically significant, so effect size is what indicates whether the finding matters.
 
-&#x20; variances; Welch's does not assume equal variance.
-
-\- \*\*Cohen's d reported alongside p-values:\*\* at n ≈ 90,000 almost any difference is
-
-&#x20; statistically significant, so effect size is what indicates whether the finding matters.
-
-\- \*\*Missing review scores are not imputed:\*\* a customer choosing not to review is different
-
-&#x20; information from a low review.
+\- \*\*Missing review scores are not imputed:\*\* a customer choosing not to review is different information from a low review.
 
