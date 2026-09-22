@@ -1,0 +1,19 @@
+metric,value,unit
+Delivered orders analysed,96470.0,orders
+Customers,93358.0,customers
+Total revenue,13220248.93,BRL
+Median order value,86.5,BRL
+Mean order value,137.04,BRL
+Revenue per customer,141.61,BRL
+Revenue from top 10% of customers,41.1,%
+Repeat rate (corrected),2.13,%
+"Repeat rate (naive, order count only)",3.0,%
+Customers reclassified as one-time,808.0,customers
+Late delivery rate,6.77,%
+Median days early vs promise,11.9,days
+Median actual delivery time,10.2,days
+Average review score,4.16,stars
+Negative review rate (1-2 stars),12.8,%
+"Negative review rate, on-time orders",9.3,%
+"Negative review rate, late orders",62.4,%
+Share of negative reviews from late orders,32.5,%

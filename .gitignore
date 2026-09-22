@@ -1,5 +1,5 @@
 # Data files - too large for GitHub, downloaded separately
-data/
+data/*
 *.csv
 *.db
 
@@ -17,3 +17,6 @@ __pycache__/
 # OS
 Thumbs.db
 desktop.ini
+
+# Exception: the KPI summary is small and worth committing
+!data/kpi_summary.csv
