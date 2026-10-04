@@ -1,6 +1,6 @@
 # Marketplace Retention & Delivery Analytics
 
-Analysis of the Olist Brazilian e-commerce marketplace: 96,470 delivered orders and 93,358 customers between January 2017 and August 2018.
+Analysis of the Olist Brazilian e-commerce marketplace: 96,470 delivered orders and 93,358 customers(focusing on the core operating period between January 2017 and August 2018).
 
 SQL (SQLite) · Python (pandas, SciPy, Matplotlib, Seaborn) · Tableau
 
@@ -71,6 +71,7 @@ Repeat purchase on this marketplace is close to random with respect to everythin
 ## Method notes
 
 - **Late** means the order arrived on a later calendar day than promised. Promised dates are stored at midnight, so a naive "arrived after the promised timestamp" rule flags orders delivered during the promised day itself. That rule gave 8.1%; the corrected rate is 6.8%.
+- 8 unrecorded deliveries excluded from delivery analysis: 8 orders marked "delivered" lacked an actual customer delivery timestamp and were omitted from delivery duration calculations, leaving 93,350 evaluated customers in the delivery retention cohort
 - **Welch's t-test** is used rather than Student's because the two groups differ greatly in size and variance.
 - **Cohen's d is reported alongside p-values.** At n of roughly 95,000 almost any difference is statistically significant, so effect size is what indicates whether a finding matters.
 - **Missing review scores are never imputed.** A customer who chose not to review is different information from a low score. 646 orders have no review and are excluded from review analysis only.
